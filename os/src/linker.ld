@@ -1,5 +1,7 @@
 OUTPUT_ARCH(riscv)
+/* 这里设置链接后的程序入口，在 _start 段 */
 ENTRY(_start)
+/* 生成的指令的地址 */
 BASE_ADDRESS = 0x80200000;
 
 SECTIONS

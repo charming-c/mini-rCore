@@ -5,6 +5,7 @@
 use core::arch::global_asm;
 use log::*;
 
+// 将汇编插入本文件编译，entry.asm 中设置的执行文件时的入口
 global_asm!(include_str!("entry.asm"));
 
 #[macro_use]
@@ -22,6 +23,7 @@ pub fn clear_bss() {
     (sbss as usize..ebss as usize).for_each(|a| unsafe { (a as *mut u8).write_volatile(0) });
 }
 
+// 链接时函数名不混淆，因为在 entry_asm 中使用了 call rust_main 指令
 #[no_mangle]
 pub fn rust_main() -> ! {
     extern "C" {

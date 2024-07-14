@@ -10,3 +10,5 @@ boot_stack_lower_bound:
     .space 4096 * 16
     .globl boot_stack_top
 boot_stack_top:
+
+// 这里设置了入口，并且为 bss 专门设置了一定的空间给 栈
