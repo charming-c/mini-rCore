@@ -2,6 +2,7 @@
 use crate::sbi::shutdown;
 use core::panic::PanicInfo;
 
+// 重写 panic 宏
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     if let Some(location) = info.location() {
