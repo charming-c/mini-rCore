@@ -7,12 +7,17 @@ use log::*;
 
 // 将汇编插入本文件编译，entry.asm 中设置的执行文件时的入口
 global_asm!(include_str!("entry.asm"));
+global_asm!(include_str!("link_app.S"));
 
 #[macro_use]
 mod console;
 mod lang_items;
 mod sbi;
 mod logger;
+mod batch;
+mod sync;
+mod trap;
+mod syscall;
 
 /// clear BSS segment
 pub fn clear_bss() {
@@ -62,5 +67,8 @@ pub fn rust_main() -> ! {
 
     // CI autotest success: sbi::shutdown(false)
     // CI autotest failed : sbi::shutdown(true)
-    sbi::shutdown(false)
+
+    trap::init();
+    batch::init();
+    batch::run_next_app();
 }
